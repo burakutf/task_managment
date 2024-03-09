@@ -11,6 +11,9 @@ from kanban.views import (
     UsernameAuthView,
     TaskViewSet,
 )
+from account.views import (
+    UserViewSet
+)
 from django.conf import settings
 
 schema_view = get_schema_view(
@@ -24,6 +27,7 @@ schema_view = get_schema_view(
 
 router = DefaultRouter()
 router.register(r'tasks', TaskViewSet)
+router.register(r'users', UserViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),

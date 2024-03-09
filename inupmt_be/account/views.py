@@ -1,7 +1,6 @@
 from rest_framework import viewsets
-from inupmt_be.account.models import User
-
-from inupmt_be.account.serializers import UserSerializer
+from .models import User
+from .serializers import UserSerializer
 
 # Create your views here.
 

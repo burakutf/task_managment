@@ -1,6 +1,5 @@
 from rest_framework import serializers
-
-from inupmt_be.account.models import User
+from .models import User 
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
