@@ -13,6 +13,6 @@ class Task(models.Model):
     labels = models.CharField(max_length=100)
     due_date = models.DateField()
     create_time = models.DateTimeField(auto_now_add=True)
-    priority = models.IntegerField(choices=[(tag.value, tag.name) for tag in Priority])
+    priority = models.IntegerField(choices=Priority.choices)    
     description = models.TextField()
     attachments = models.FileField(upload_to='attachments/', blank=True, null=True)
