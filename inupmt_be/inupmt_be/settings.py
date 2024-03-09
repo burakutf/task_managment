@@ -21,7 +21,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-b75-%t&3*-fw$w1t6dwz%ghu+p%36sy*9x7!oxoo&+ldn)x)!4'
+SECRET_KEY = (
+    'django-insecure-b75-%t&3*-fw$w1t6dwz%ghu+p%36sy*9x7!oxoo&+ldn)x)!4'
+)
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -40,11 +42,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'corsheaders',
     'kanban',
+    'account',
     'rest_framework',
     'rest_framework.authtoken',
     'rest_framework_swagger',
     'drf_yasg',
-    
 ]
 
 MIDDLEWARE = [
@@ -125,6 +127,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTH_USER_MODEL = 'account.User'
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
@@ -142,6 +145,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_URL = 'static/'
+MEDIA_ROOT = 'media/'
+MEDIA_URL = '/media/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
