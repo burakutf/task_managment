@@ -10,11 +10,11 @@ import Divider from "@mui/material/Divider"
 import Tooltip from "@mui/material/Tooltip"
 import TextField from "@mui/material/TextField"
 import IconButton from "@mui/material/IconButton"
+import Box from "@mui/material/Box"
 // hooks
 import { useBoolean } from "./utils/use-boolean"
 // components
 import Iconify from "./components/iconify"
-import Scrollbar from "./components/scrollbar"
 import CustomDateRangePicker, {
   useDateRangePicker
 } from "./components/custom-date-range-picker"
@@ -244,64 +244,62 @@ export default function KanbanDetails({
 
   return (
     <Drawer
-      open={openDetails}
-      onClose={onCloseDetails}
-      anchor="right"
-      slotProps={{
-        backdrop: { invisible: true }
-      }}
-      PaperProps={{
-        sx: {
-          width: {
-            xs: 1,
-            sm: 480
-          }
+    open={openDetails}
+    onClose={onCloseDetails}
+    anchor="right"
+    slotProps={{
+      backdrop: { invisible: true }
+    }}
+    PaperProps={{
+      sx: {
+        width: {
+          xs: 1,
+          sm: 480
         }
+      }
+    }}
+  >
+    {renderHead}
+  
+    <Divider />
+  
+    <Box
+      sx={{
+        height: 1,
+        display: "flex",
+        flexDirection: "column",
+        overflow: 'auto' // Scroll özelliğini aktif hale getiriyoruz
       }}
     >
-      {renderHead}
-
-      <Divider />
-
-      <Scrollbar
+      <Stack
+        spacing={3}
         sx={{
-          height: 1,
-          "& .simplebar-content": {
-            height: 1,
-            display: "flex",
-            flexDirection: "column"
-          }
+          pt: 3,
+          pb: 5,
+          px: 2.5
         }}
       >
-        <Stack
-          spacing={3}
-          sx={{
-            pt: 3,
-            pb: 5,
-            px: 2.5
-          }}
-        >
-          {renderName}
-
-          {renderReporter}
-
-          {renderAssignee}
-
-          {renderLabel}
-
-          {renderDueDate}
-
-          {renderPriority}
-
-          {renderDescription}
-
-          {renderAttachments}
-        </Stack>
-
-        {!!task.comments.length && renderComments}
-      </Scrollbar>
-
-      <KanbanDetailsCommentInput />
-    </Drawer>
+        {renderName}
+  
+        {renderReporter}
+  
+        {renderAssignee}
+  
+        {renderLabel}
+  
+        {renderDueDate}
+  
+        {renderPriority}
+  
+        {renderDescription}
+  
+        {renderAttachments}
+      </Stack>
+  
+      {!!task.comments.length && renderComments}
+    </Box>
+  
+    <KanbanDetailsCommentInput />
+  </Drawer>
   )
 }
