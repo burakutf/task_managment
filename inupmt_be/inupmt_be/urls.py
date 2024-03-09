@@ -1,13 +1,13 @@
 from django.contrib import admin
 from django.urls import path
-from rest_framework.routers import DefaultRouter
 from django.conf.urls.static import static
+from rest_framework.routers import DefaultRouter
 from rest_framework_swagger.views import get_swagger_view
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 from rest_framework import permissions
-from kanban.views import UsernameAuthView, TaskViewSet, UserViewSet
-from django.conf import settings
+from kanban.views import UsernameAuthView, TaskViewSet, UserViewSet, UserAvatarViewSet
+from django.conf import settings 
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -20,6 +20,7 @@ schema_view = get_schema_view(
 router = DefaultRouter()
 router.register(r'tasks', TaskViewSet)
 router.register(r'users', UserViewSet)
+router.register(r'avatar', UserAvatarViewSet, basename='user-avatar')
 
 urlpatterns = [
     path('admin/', admin.site.urls),

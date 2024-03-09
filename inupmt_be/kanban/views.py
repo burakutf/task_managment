@@ -1,21 +1,17 @@
 from rest_framework.views import APIView
-
 from rest_framework.response import Response
 from django.contrib.auth import authenticate
-from django.contrib.auth.models import User
+from .models import User, Task
 from rest_framework.authtoken.models import Token
-from .models import Task
 from .serializers import TaskSerializer, UserSerializer
 from rest_framework import status
 from rest_framework import viewsets
 from rest_framework.permissions import AllowAny
 
 class UsernameAuthView(APIView):
-
-    permission_classes = (AllowAny, )
+    permission_classes = (AllowAny)
 
     def post(self, request, *args, **kwargs):
-
         username = request.data.get('username')
         password = request.data.get('password')
         if username is None or password is None:
@@ -33,5 +29,9 @@ class TaskViewSet(viewsets.ModelViewSet):
     serializer_class = TaskSerializer
 
 class UserViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+class UserAvatarViewSet(viewsets.ViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
