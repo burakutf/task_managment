@@ -1,19 +1,36 @@
-import React from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import NotFound from "./pages/NotFound";
 import SignInSide from "./pages/LoginPage";
 import Deneme from "./pages/Deneme";
+import KanbanPage from "./pages/kanban";
+import { HelmetProvider } from "react-helmet-async";
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<ProtectedRoute><Deneme /></ProtectedRoute>} />
-        <Route path="/deneme" element={<ProtectedRoute><Deneme /></ProtectedRoute>} />
-        <Route path="/login" element={<SignInSide />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </BrowserRouter>
+    <HelmetProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <ProtectedRoute>
+                <KanbanPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/deneme"
+            element={
+              <ProtectedRoute>
+                <Deneme />
+              </ProtectedRoute>
+            }
+          />
+          <Route path="/login" element={<SignInSide />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </BrowserRouter>
+    </HelmetProvider>
   );
 }
 
