@@ -12,4 +12,3 @@ class TaskSerializer(serializers.ModelSerializer):
         instance = Task.objects.create(**validated_data)
         instance.assignees.set(assignees_data)
         return instance
-    

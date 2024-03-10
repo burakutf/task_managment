@@ -11,9 +11,7 @@ from kanban.views import (
     UsernameAuthView,
     TaskViewSet,
 )
-from account.views import (
-    UserViewSet
-)
+from account.views import UserViewSet
 from django.conf import settings
 
 schema_view = get_schema_view(

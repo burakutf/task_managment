@@ -1,16 +1,18 @@
 // @mui
-import { DatePicker } from "@mui/x-date-pickers/DatePicker"
-import { DateCalendar } from "@mui/x-date-pickers/DateCalendar"
-import Paper from "@mui/material/Paper"
-import Stack from "@mui/material/Stack"
-import Button from "@mui/material/Button"
-import Dialog from "@mui/material/Dialog"
-import DialogTitle from "@mui/material/DialogTitle"
-import DialogActions from "@mui/material/DialogActions"
-import DialogContent from "@mui/material/DialogContent"
-import FormHelperText from "@mui/material/FormHelperText"
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
+import Paper from "@mui/material/Paper";
+import Stack from "@mui/material/Stack";
+import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import DialogTitle from "@mui/material/DialogTitle";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import FormHelperText from "@mui/material/FormHelperText";
 // hooks
-import { useResponsive } from "../../utils/use-responsive"
+import { useResponsive } from "../../utils/use-responsive";
 
 // ----------------------------------------------------------------------
 
@@ -34,13 +36,15 @@ export default function CustomDateRangePicker({
   onClose,
 
   //
-  error
+  error,
 }) {
-  const mdUp = useResponsive("up", "md")
+  const mdUp = useResponsive("up", "md");
 
-  const isCalendarView = variant === "calendar"
+  const isCalendarView = variant === "calendar";
 
   return (
+    <LocalizationProvider dateAdapter={AdapterDateFns}>
+
     <Dialog
       fullWidth
       maxWidth={isCalendarView ? false : "xs"}
@@ -49,9 +53,9 @@ export default function CustomDateRangePicker({
       PaperProps={{
         sx: {
           ...(isCalendarView && {
-            maxWidth: 720
-          })
-        }
+            maxWidth: 720,
+          }),
+        },
       }}
     >
       <DialogTitle sx={{ pb: 2 }}>{title}</DialogTitle>
@@ -60,8 +64,8 @@ export default function CustomDateRangePicker({
         sx={{
           ...(isCalendarView &&
             mdUp && {
-              overflow: "unset"
-            })
+              overflow: "unset",
+            }),
         }}
       >
         <Stack
@@ -77,7 +81,7 @@ export default function CustomDateRangePicker({
                 sx={{
                   borderRadius: 2,
                   borderColor: "divider",
-                  borderStyle: "dashed"
+                  borderStyle: "dashed",
                 }}
               >
                 <DateCalendar value={startDate} onChange={onChangeStartDate} />
@@ -88,7 +92,7 @@ export default function CustomDateRangePicker({
                 sx={{
                   borderRadius: 2,
                   borderColor: "divider",
-                  borderStyle: "dashed"
+                  borderStyle: "dashed",
                 }}
               >
                 <DateCalendar value={endDate} onChange={onChangeEndDate} />
@@ -96,17 +100,17 @@ export default function CustomDateRangePicker({
             </>
           ) : (
             <>
-              <DatePicker
-                label="Start date"
-                value={startDate}
-                onChange={onChangeStartDate}
-              />
+                <DatePicker
+                  label="Start date"
+                  value={startDate}
+                  onChange={onChangeStartDate}
+                />
 
-              <DatePicker
-                label="End date"
-                value={endDate}
-                onChange={onChangeEndDate}
-              />
+                <DatePicker
+                  label="End date"
+                  value={endDate}
+                  onChange={onChangeEndDate}
+                />
             </>
           )}
         </Stack>
@@ -128,5 +132,7 @@ export default function CustomDateRangePicker({
         </Button>
       </DialogActions>
     </Dialog>
-  )
+    </LocalizationProvider>
+
+  );
 }

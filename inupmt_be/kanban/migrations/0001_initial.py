@@ -17,15 +17,46 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Task',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                (
+                    'id',
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name='ID',
+                    ),
+                ),
                 ('labels', models.CharField(max_length=100)),
                 ('due_date', models.DateField()),
                 ('create_time', models.DateTimeField(auto_now_add=True)),
-                ('priority', models.IntegerField(choices=[(1, 'Düşük'), (2, 'Orta'), (3, 'Yüksek')])),
+                (
+                    'priority',
+                    models.IntegerField(
+                        choices=[(1, 'Düşük'), (2, 'Orta'), (3, 'Yüksek')]
+                    ),
+                ),
                 ('description', models.TextField()),
-                ('attachments', models.FileField(blank=True, null=True, upload_to='attachments/')),
-                ('assignees', models.ManyToManyField(related_name='assigned_tasks', to=settings.AUTH_USER_MODEL)),
-                ('reporter', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='reported_tasks', to=settings.AUTH_USER_MODEL)),
+                (
+                    'attachments',
+                    models.FileField(
+                        blank=True, null=True, upload_to='attachments/'
+                    ),
+                ),
+                (
+                    'assignees',
+                    models.ManyToManyField(
+                        related_name='assigned_tasks',
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
+                (
+                    'reporter',
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name='reported_tasks',
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
         ),
     ]
