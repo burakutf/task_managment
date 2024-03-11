@@ -18,19 +18,20 @@ export function useGetBoard() {
     URL,
     fetcher,
     options
-  );
-
-  const memoizedValue = useMemo(
-    () => ({
-      board: data?.board,
-      boardLoading: isLoading,
-      boardError: error,
-      boardValidating: isValidating,
-      boardEmpty: !isLoading && !data?.board.ordered.length,
-    }),
-    [data?.board, error, isLoading, isValidating]
-  );
-
+    );
+    
+    const memoizedValue = useMemo(
+      () => ({
+        board: data?.board,
+        boardLoading: isLoading,
+        boardError: error,
+        boardValidating: isValidating,
+        boardEmpty: !isLoading && !data?.board.ordered.length,
+      }),
+      [data?.board, error, isLoading, isValidating]
+      );
+      
+      console.log(memoizedValue)
   return memoizedValue;
 }
 

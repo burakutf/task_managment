@@ -6,6 +6,7 @@ import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
+import MenuItem from '@mui/material/MenuItem';
 
 // theme
 import { hideScroll } from "./css";
@@ -22,7 +23,12 @@ import { KanbanColumnSkeleton } from "../kanban-skeleton";
 
 export default function KanbanView() {
   const { board, boardLoading, boardEmpty } = useGetBoard();
+  const handleLogout = () => {
+    localStorage.removeItem('user');
+    localStorage.removeItem('token');
+    window.location.href = '/login';
 
+  };
   const onDragEnd = useCallback(
     async ({ destination, source, draggableId, type }) => {
       try {
@@ -129,6 +135,14 @@ export default function KanbanView() {
         >
           & İş Takip
         </Typography>
+        <MenuItem
+          disableRipple
+          disableTouchRipple
+          onClick={handleLogout}
+          sx={{ typography: 'body2', color: 'error.main', py: 1.5 }}
+        >
+          Logout
+        </MenuItem>
       </Box>
       {boardLoading && renderSkeleton}
 
