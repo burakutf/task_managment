@@ -19,6 +19,7 @@ class Column(models.Model):
 
 class Labels(models.Model):
     title = models.CharField(max_length=100)
+
     def __str__(self) -> str:
         return f'{self.title}'
 
@@ -36,8 +37,8 @@ class Task(models.Model):
     name = models.CharField(null=True, max_length=128)
     labels = models.ManyToManyField(Labels, related_name='labels_task')
     comments = models.ManyToManyField(User, related_name='comments_task')
-    start_date = models.DateField(null=True,blank=True)
-    end_date = models.DateField(null=True,blank=True)
+    start_date = models.DateField(null=True, blank=True)
+    end_date = models.DateField(null=True, blank=True)
     create_time = models.DateTimeField(auto_now_add=True)
     priority = models.TextField(choices=Priority.choices)
     description = models.TextField(null=True, blank=True)
@@ -50,7 +51,9 @@ class Task(models.Model):
 
 
 class Comment(models.Model):
-    task = models.ForeignKey(Task, related_name='task_comments', on_delete=models.CASCADE, null=True)
+    task = models.ForeignKey(
+        Task, related_name='task_comments', on_delete=models.CASCADE, null=True
+    )
 
     author = models.ForeignKey(
         User, related_name='comments', on_delete=models.CASCADE
@@ -60,4 +63,3 @@ class Comment(models.Model):
 
     def __str__(self):
         return f'{self.author} - {self.task}'
-

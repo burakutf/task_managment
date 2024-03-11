@@ -14,6 +14,11 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='comment',
             name='task',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, related_name='task_comments', to='kanban.task'),
+            field=models.ForeignKey(
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name='task_comments',
+                to='kanban.task',
+            ),
         ),
     ]

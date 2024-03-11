@@ -15,23 +15,24 @@ class UsernameAuthView(APIView):
     permission_classes = [AllowAny]
 
     def post(self, request, *args, **kwargs):
-        username = request.data.get("username")
-        password = request.data.get("password")
+        username = request.data.get('username')
+        password = request.data.get('password')
         if username is None or password is None:
             return Response(
-                {"error": "Kullanıcı adı ve şifre gereklidir."},
+                {'error': 'Kullanıcı adı ve şifre gereklidir.'},
                 status=status.HTTP_400_BAD_REQUEST,
             )
 
         user = authenticate(username=username, password=password)
         if user is None:
             return Response(
-                {"error": "Geçersiz kullanıcı adı veya şifre."},
+                {'error': 'Geçersiz kullanıcı adı veya şifre.'},
                 status=status.HTTP_401_UNAUTHORIZED,
             )
 
         token, created = Token.objects.get_or_create(user=user)
-        return Response({"token": token.key})
+        return Response({'token': token.key})
+
 
 class TaskViewSet(viewsets.ModelViewSet):
     queryset = Task.objects.all()
@@ -41,24 +42,28 @@ class TaskViewSet(viewsets.ModelViewSet):
         tasks = Task.objects.select_related('column').all()
         serialized_data = TaskSerializer(tasks, many=True).data
 
-        custom_response = {"board": {"columns": {},'ordered':[], "tasks": {}}}
+        custom_response = {
+            'board': {'columns': {}, 'ordered': [], 'tasks': {}}
+        }
 
         # Create a list of columns ordered by priority
         columns_ordered_by_priority = Column.objects.order_by('priority')
 
         for column in columns_ordered_by_priority:
-            custom_response["board"]["columns"][column.id] = {
-                "id": f"{column.id}",
-                "name": column.title,
-                "taskIds": [],
+            custom_response['board']['columns'][column.id] = {
+                'id': f'{column.id}',
+                'name': column.title,
+                'taskIds': [],
             }
             # Add the column to the ordered list
-            custom_response["board"]["ordered"].append(f'{column.id}')
+            custom_response['board']['ordered'].append(f'{column.id}')
 
         for task_data in serialized_data:
-            task_id = task_data["id"]
-            column_id = task_data["column"]
-            custom_response["board"]["columns"][column_id]["taskIds"].append(f'{task_id}')
-            custom_response["board"]["tasks"][task_id] = task_data
+            task_id = task_data['id']
+            column_id = task_data['column']
+            custom_response['board']['columns'][column_id]['taskIds'].append(
+                f'{task_id}'
+            )
+            custom_response['board']['tasks'][task_id] = task_data
 
         return JsonResponse(custom_response)

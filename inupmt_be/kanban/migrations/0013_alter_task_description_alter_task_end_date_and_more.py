@@ -23,7 +23,13 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='task',
             name='priority',
-            field=models.TextField(choices=[('low', 'Düşük'), ('medium', 'Orta'), ('high', 'Yüksek')]),
+            field=models.TextField(
+                choices=[
+                    ('low', 'Düşük'),
+                    ('medium', 'Orta'),
+                    ('high', 'Yüksek'),
+                ]
+            ),
         ),
         migrations.AlterField(
             model_name='task',

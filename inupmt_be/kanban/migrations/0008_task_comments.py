@@ -15,6 +15,8 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='task',
             name='comments',
-            field=models.ManyToManyField(related_name='comments_task', to=settings.AUTH_USER_MODEL),
+            field=models.ManyToManyField(
+                related_name='comments_task', to=settings.AUTH_USER_MODEL
+            ),
         ),
     ]

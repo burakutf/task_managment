@@ -13,7 +13,15 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Labels',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                (
+                    'id',
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name='ID',
+                    ),
+                ),
                 ('title', models.CharField(max_length=100)),
             ],
         ),
@@ -24,6 +32,8 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='task',
             name='labels',
-            field=models.ManyToManyField(related_name='labels_task', to='kanban.labels'),
+            field=models.ManyToManyField(
+                related_name='labels_task', to='kanban.labels'
+            ),
         ),
     ]
