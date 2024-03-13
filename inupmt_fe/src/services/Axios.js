@@ -39,5 +39,6 @@ export const fetcher = async args => {
 // ----------------------------------------------------------------------
 
 export const endpoints = {
-  kanban: "/tasks"
+  kanban: "/tasks",
+  comments: "/comments/"
 }

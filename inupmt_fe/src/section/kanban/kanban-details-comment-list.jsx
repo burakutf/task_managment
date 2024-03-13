@@ -23,7 +23,7 @@ export default function KanbanDetailsCommentList({ comments }) {
         sx={{
           py: 3,
           px: 2.5,
-          bgcolor: "background.neutral"
+          bgcolor: 'rgb(244, 246, 248)',
         }}
       >
         {comments.map(comment => (

@@ -11,9 +11,19 @@ import { useMockedUser } from "./utils/use-mocked-user"
 import Iconify from "./components/iconify"
 
 // ----------------------------------------------------------------------
+import React, { useState } from 'react';
+import { addComment } from "../../services/kanban"
+// ...other imports...
 
-export default function KanbanDetailsCommentInput() {
-  const { user } = useMockedUser()
+export default function KanbanDetailsCommentInput({ task }) {
+  const { user } = useMockedUser();
+  const [comment, setComment] = useState(''); // Add this line
+
+  const handleCommentSubmit = () => {
+    // Add your logic to submit the comment here
+    addComment({ task: task.id, content: comment }) // Call the addComment function with the task ID and comment
+    setComment(''); // Clear the comment input after submit
+  };
 
   return (
     <Stack
@@ -36,6 +46,8 @@ export default function KanbanDetailsCommentInput() {
           rows={2}
           placeholder="Type a message"
           sx={{ px: 1 }}
+          value={comment} // Bind the value to the state variable
+          onChange={(e) => setComment(e.target.value)} // Update the state variable when the input changes
         />
 
         <Stack direction="row" alignItems="center">
@@ -49,7 +61,7 @@ export default function KanbanDetailsCommentInput() {
             </IconButton>
           </Stack>
 
-          <Button variant="contained">Comment</Button>
+          <Button variant="contained" onClick={handleCommentSubmit}>Comment</Button> {/* Add an onClick handler here */}
         </Stack>
       </Paper>
     </Stack>

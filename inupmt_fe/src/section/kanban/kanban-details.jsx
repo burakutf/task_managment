@@ -299,7 +299,7 @@ export default function KanbanDetails({
       {!!task.comments.length && renderComments}
     </Box>
   
-    <KanbanDetailsCommentInput />
-  </Drawer>
+    <KanbanDetailsCommentInput task={task} />
+    </Drawer>
   )
 }

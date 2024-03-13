@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import useSWR, { mutate } from "swr";
 // utils
-import { fetcher, endpoints } from "./Axios";
+import axios, { fetcher, endpoints } from "./Axios";
 
 // ----------------------------------------------------------------------
 
@@ -291,14 +291,25 @@ export async function createTask(columnId, taskData) {
   );
 }
 
+
+export async function dropUpdateTask(taskData) {
+  const params = { column: taskData.columnId}
+  const taskId = taskData.taskId;
+  await axios.patch(endpoints.kanban+`/${taskId}/`, params );
+
+}
 // ----------------------------------------------------------------------
+export async function addComment(data) {
+  await axios.post(endpoints.comments, data );
+  mutate(URL);
+}
 
 export async function updateTask(taskData) {
   /**
    * Work on server
    */
-  // const data = { taskData };
-  // await axios.post(endpoints.kanban, data, { params: { endpoint: 'update-task' } });
+  const data = { taskData };
+  await axios.post(endpoints.kanban, data, { params: { endpoint: 'update-task' } });
 
   /**
    * Work in local

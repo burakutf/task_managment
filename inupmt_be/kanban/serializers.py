@@ -4,7 +4,7 @@ from account.models import User
 from .models import Task, Labels, Comment
 
 
-class UserSerializer(serializers.ModelSerializer):
+class MNUserSerializer(serializers.ModelSerializer):
     avatarUrl = serializers.ImageField(source='avatar')
     id = serializers.CharField()
 
@@ -23,7 +23,7 @@ class LabelSerializer(serializers.ModelSerializer):
         fields = ('title',)
 
 
-class CommentSerializer(serializers.ModelSerializer):
+class MNCommentSerializer(serializers.ModelSerializer):
     message = serializers.CharField(source='content')
     createdAt = serializers.DateTimeField(source='create_time')
     messageType = serializers.SerializerMethodField()
@@ -45,13 +45,13 @@ class TimestampField(serializers.Field):
 
 
 class TaskSerializer(serializers.ModelSerializer):
-    assignee = UserSerializer(source='assignees', many=True, read_only=True)
+    assignee = MNUserSerializer(source='assignees', many=True, read_only=True)
     labels = LabelSerializer(many=True, read_only=True)
     start = TimestampField(source='start_time', read_only=True)
     end = TimestampField(source='end_time', read_only=True)
-    reporter = UserSerializer()
+    reporter = MNUserSerializer()
     status = serializers.CharField(source='column.title')
-    comments = CommentSerializer(
+    comments = MNCommentSerializer(
         source='task_comments', many=True, read_only=True
     )
     id = serializers.CharField()
@@ -81,3 +81,13 @@ class TaskSerializer(serializers.ModelSerializer):
         if 'end' in representation:
             representation['due'].append(representation['end'])
         return representation
+
+class CommentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Comment
+        fields = '__all__'
+    
+    def create(self, validated_data):
+        author = self.context['request'].user
+        validated_data['author'] = author
+        return super().create(validated_data)

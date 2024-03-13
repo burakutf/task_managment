@@ -6,12 +6,12 @@ import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
-import MenuItem from '@mui/material/MenuItem';
+import MenuItem from "@mui/material/MenuItem";
 
 // theme
 import { hideScroll } from "./css";
 // api
-import { useGetBoard, moveColumn, moveTask } from "../../../services/kanban";
+import { useGetBoard, moveColumn, moveTask, updateTask, dropUpdateTask } from "../../../services/kanban";
 // components
 import EmptyContent from "../components/empty-content";
 //
@@ -24,10 +24,9 @@ import { KanbanColumnSkeleton } from "../kanban-skeleton";
 export default function KanbanView() {
   const { board, boardLoading, boardEmpty } = useGetBoard();
   const handleLogout = () => {
-    localStorage.removeItem('user');
-    localStorage.removeItem('token');
-    window.location.href = '/login';
-
+    localStorage.removeItem("user");
+    localStorage.removeItem("token");
+    window.location.href = "/login";
   };
   const onDragEnd = useCallback(
     async ({ destination, source, draggableId, type }) => {
@@ -40,18 +39,6 @@ export default function KanbanView() {
           destination.droppableId === source.droppableId &&
           destination.index === source.index
         ) {
-          return;
-        }
-
-        // Moving column
-        if (type === "COLUMN") {
-          const newOrdered = [...board.ordered];
-
-          newOrdered.splice(source.index, 1);
-
-          newOrdered.splice(destination.index, 0, draggableId);
-
-          moveColumn(newOrdered);
           return;
         }
 
@@ -102,13 +89,13 @@ export default function KanbanView() {
             taskIds: destinationTaskIds,
           },
         });
-
+        dropUpdateTask({taskId: draggableId, columnId: destinationColumn.id});
         console.info("Moving to different list!");
       } catch (error) {
         console.error(error);
       }
     },
-    [board?.columns, board?.ordered]
+    [board?.columns]
   );
 
   const renderSkeleton = (
@@ -128,18 +115,16 @@ export default function KanbanView() {
       }}
     >
       <Box sx={{ display: "flex", alignItems: "center" }}>
-        <Avatar src="https://ogrencitopluluklari.inonu.edu.tr/Uploads/Image/Logo/33bbfada-368f-4b63-a6ce-a5df2b754355.png" sx={{ mr: 2, width: 80, height: 80, }} />
-        <Typography
-          variant="h4"
-  
-        >
-          & İş Takip
-        </Typography>
+        <Avatar
+          src="https://ogrencitopluluklari.inonu.edu.tr/Uploads/Image/Logo/33bbfada-368f-4b63-a6ce-a5df2b754355.png"
+          sx={{ mr: 2, width: 80, height: 80 }}
+        />
+        <Typography variant="h4">& İş Takip</Typography>
         <MenuItem
           disableRipple
           disableTouchRipple
           onClick={handleLogout}
-          sx={{ typography: 'body2', color: 'error.main', py: 1.5 }}
+          sx={{ typography: "body2", color: "error.main", py: 1.5 }}
         >
           Logout
         </MenuItem>
@@ -159,7 +144,7 @@ export default function KanbanView() {
 
       {!!board?.ordered.length && (
         <DragDropContext onDragEnd={onDragEnd}>
-          <Droppable droppableId="board" type="COLUMN" direction="horizontal">
+          <Droppable droppableId="board" direction="horizontal">
             {(provided) => (
               <Stack
                 ref={provided.innerRef}
@@ -184,8 +169,8 @@ export default function KanbanView() {
                 ))}
 
                 {provided.placeholder}
-
-                <KanbanColumnAdd />
+                {/* 
+                <KanbanColumnAdd /> */}
               </Stack>
             )}
           </Droppable>

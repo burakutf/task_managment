@@ -8,6 +8,7 @@ from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 from rest_framework import permissions
 from kanban.views import (
+    CommentViewSet,
     UsernameAuthView,
     TaskViewSet,
 )
@@ -24,7 +25,9 @@ schema_view = get_schema_view(
 )
 
 router = DefaultRouter()
+
 router.register(r'tasks', TaskViewSet)
+router.register(r'comments', CommentViewSet)
 router.register(r'users', UserViewSet)
 
 urlpatterns = [
