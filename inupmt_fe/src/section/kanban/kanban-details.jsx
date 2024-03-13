@@ -173,13 +173,12 @@ export default function KanbanDetails({
       <StyledLabel> Due date </StyledLabel>
 
       {rangePicker.selected ? (
-        <Button size="small" onClick={rangePicker.onOpen}>
-          {rangePicker.shortLabel}
-        </Button>
+    
+          rangePicker.shortLabel
       ) : (
         <Tooltip title="Add due date">
           <IconButton
-            onClick={rangePicker.onOpen}
+            // onClick={rangePicker.onOpen}
             sx={{
               bgcolor: theme => alpha(theme.palette.grey[500], 0.08),
               border: theme => `dashed 1px ${theme.palette.divider}`
