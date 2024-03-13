@@ -4,11 +4,8 @@ import Stack from "@mui/material/Stack"
 import Button from "@mui/material/Button"
 import Avatar from "@mui/material/Avatar"
 import InputBase from "@mui/material/InputBase"
-import IconButton from "@mui/material/IconButton"
-// hooks
 import { useMockedUser } from "./utils/use-mocked-user"
 // components
-import Iconify from "./components/iconify"
 
 // ----------------------------------------------------------------------
 import React, { useState } from 'react';
@@ -52,16 +49,10 @@ export default function KanbanDetailsCommentInput({ task }) {
 
         <Stack direction="row" alignItems="center">
           <Stack direction="row" flexGrow={1}>
-            <IconButton>
-              <Iconify icon="solar:gallery-add-bold" />
-            </IconButton>
-
-            <IconButton>
-              <Iconify icon="eva:attach-2-fill" />
-            </IconButton>
+          
           </Stack>
 
-          <Button variant="contained" onClick={handleCommentSubmit}>Comment</Button> {/* Add an onClick handler here */}
+          <Button variant="contained" onClick={handleCommentSubmit}>Gönder</Button> {/* Add an onClick handler here */}
         </Stack>
       </Paper>
     </Stack>
