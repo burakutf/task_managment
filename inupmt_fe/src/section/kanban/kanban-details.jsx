@@ -127,7 +127,7 @@ export default function KanbanDetails({
           <Avatar key={user.id} alt={user.name} src={user.avatarUrl} />
         ))}
 
-        <Tooltip title="Add assignee">
+        {/* <Tooltip title="Add assignee">
           <IconButton
             onClick={contacts.onTrue}
             sx={{
@@ -137,7 +137,7 @@ export default function KanbanDetails({
           >
             <Iconify icon="mingcute:add-line" />
           </IconButton>
-        </Tooltip>
+        </Tooltip> */}
 
         <KanbanContactsDialog
           assignee={task.assignee}
@@ -293,7 +293,7 @@ export default function KanbanDetails({
   
         {renderDescription}
   
-        {renderAttachments}
+        {/* {renderAttachments} */}
       </Stack>
   
       {!!task.comments.length && renderComments}

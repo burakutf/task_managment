@@ -1,3 +1,4 @@
+from datetime import datetime
 from rest_framework import serializers
 
 from account.models import User
@@ -38,17 +39,9 @@ class MNCommentSerializer(serializers.ModelSerializer):
         return 'text'
 
 
-class TimestampField(serializers.Field):
-    def to_representation(self, value):
-        # Convert the datetime object to a timestamp milliseconds
-        return value.timestamp() * 1000
-
-
 class TaskSerializer(serializers.ModelSerializer):
     assignee = MNUserSerializer(source='assignees', many=True, read_only=True)
     labels = LabelSerializer(many=True, read_only=True)
-    start = TimestampField(source='start_time', read_only=True)
-    end = TimestampField(source='end_time', read_only=True)
     reporter = MNUserSerializer()
     status = serializers.CharField(source='column.title')
     comments = MNCommentSerializer(
@@ -76,17 +69,27 @@ class TaskSerializer(serializers.ModelSerializer):
             label['title'] for label in representation['labels']
         ]
         representation['due'] = []
-        if 'start' in representation:
-            representation['due'].append(representation['start'])
-        if 'end' in representation:
-            representation['due'].append(representation['end'])
+
+        start_date_str = representation.get('start_date')
+        if start_date_str:
+            start_date = datetime.strptime(start_date_str, '%Y-%m-%d')
+            start_timestamp = int(start_date.timestamp() * 1000)
+            representation['due'].append(start_timestamp)
+
+        end_date_str = representation.get('end_date')
+        if end_date_str:
+            end_date = datetime.strptime(end_date_str, '%Y-%m-%d')
+            end_timestamp = int(end_date.timestamp() * 1000)
+            representation['due'].append(end_timestamp)
+
         return representation
+
 
 class CommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comment
         fields = '__all__'
-    
+
     def create(self, validated_data):
         author = self.context['request'].user
         validated_data['author'] = author

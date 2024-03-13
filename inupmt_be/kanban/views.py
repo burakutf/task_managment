@@ -68,6 +68,7 @@ class TaskViewSet(viewsets.ModelViewSet):
 
         return JsonResponse(custom_response)
 
+
 class CommentViewSet(viewsets.ModelViewSet):
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
