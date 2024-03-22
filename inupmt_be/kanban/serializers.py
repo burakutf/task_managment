@@ -3,10 +3,11 @@ from rest_framework import serializers
 
 from account.models import User
 from .models import Task, Labels, Comment
+from django.conf import settings
 
 
 class MNUserSerializer(serializers.ModelSerializer):
-    avatarUrl = serializers.ImageField(source='avatar')
+    avatarUrl = serializers.SerializerMethodField()
     id = serializers.CharField()
 
     class Meta:
@@ -16,6 +17,12 @@ class MNUserSerializer(serializers.ModelSerializer):
             'username',
             'id',
         )
+
+    def get_avatarUrl(self, obj):
+        if obj.avatar and hasattr(obj.avatar, 'url'):
+            return settings.DOMAIN_NAME + obj.avatar.url
+        else:
+            return None
 
 
 class LabelSerializer(serializers.ModelSerializer):

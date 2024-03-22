@@ -35,8 +35,8 @@ class Task(models.Model):
         Column, related_name='tasks', on_delete=models.CASCADE, null=True
     )
     name = models.CharField(null=True, max_length=128)
-    labels = models.ManyToManyField(Labels, related_name='labels_task')
-    comments = models.ManyToManyField(User, related_name='comments_task')
+    labels = models.ManyToManyField(Labels, related_name='labels_task',null=True,blank=True)
+    comments = models.ManyToManyField(User, related_name='comments_task',null=True,blank=True)
     start_date = models.DateField(null=True, blank=True)
     end_date = models.DateField(null=True, blank=True)
     create_time = models.DateTimeField(auto_now_add=True)
