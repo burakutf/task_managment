@@ -6,7 +6,7 @@ from account.models import User
 class Priority(models.TextChoices):
     LOW = 'low', 'Düşük'
     MEDIUM = 'medium', 'Orta'
-    HIGH = 'high', 'Yüksek'
+    HIGH = 'hight', 'Yüksek'
 
 
 class Column(models.Model):
