@@ -88,7 +88,7 @@ export default function KanbanDetailsToolbar({
         </Stack>
       </Stack>
 
-      <CustomPopover
+      {/* <CustomPopover
         open={popover.open}
         onClose={popover.onClose}
         arrow="top-right"
@@ -105,7 +105,7 @@ export default function KanbanDetailsToolbar({
             {option}
           </MenuItem>
         ))}
-      </CustomPopover>
+      </CustomPopover> */}
 
       <ConfirmDialog
         open={confirm.value}

@@ -41,7 +41,7 @@ export default function KanbanDetailsCommentInput({ task }) {
           fullWidth
           multiline
           rows={2}
-          placeholder="Type a message"
+          placeholder="Mesajınızı yazın..."
           sx={{ px: 1 }}
           value={comment} // Bind the value to the state variable
           onChange={(e) => setComment(e.target.value)} // Update the state variable when the input changes

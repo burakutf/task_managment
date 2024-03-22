@@ -111,7 +111,7 @@ export default function KanbanDetails({
 
   const renderReporter = (
     <Stack direction="row" alignItems="center">
-      <StyledLabel>Reporter</StyledLabel>
+      <StyledLabel>İş Yöneticisi</StyledLabel>
       <Avatar alt={task.reporter.name} src={task.reporter.avatarUrl} />
     </Stack>
   )
@@ -119,7 +119,7 @@ export default function KanbanDetails({
   const renderAssignee = (
     <Stack direction="row">
       <StyledLabel sx={{ height: 40, lineHeight: "40px" }}>
-        Assignee
+        Atananlar
       </StyledLabel>
 
       <Stack direction="row" flexWrap="wrap" alignItems="center" spacing={1}>
@@ -150,7 +150,7 @@ export default function KanbanDetails({
 
   const renderLabel = (
     <Stack direction="row">
-      <StyledLabel sx={{ height: 24, lineHeight: "24px" }}>Labels</StyledLabel>
+      <StyledLabel sx={{ height: 24, lineHeight: "24px" }}>Etiketler</StyledLabel>
 
       {!!task.labels.length && (
         <Stack direction="row" flexWrap="wrap" alignItems="center" spacing={1}>
@@ -170,7 +170,7 @@ export default function KanbanDetails({
 
   const renderDueDate = (
     <Stack direction="row" alignItems="center">
-      <StyledLabel> Due date </StyledLabel>
+      <StyledLabel> Bitiş Tarihi </StyledLabel>
 
       {rangePicker.selected ? (
     
@@ -206,7 +206,7 @@ export default function KanbanDetails({
 
   const renderPriority = (
     <Stack direction="row" alignItems="center">
-      <StyledLabel>Priority</StyledLabel>
+      <StyledLabel>Öncelik</StyledLabel>
 
       <KanbanDetailsPriority
         priority={priority}
@@ -217,7 +217,7 @@ export default function KanbanDetails({
 
   const renderDescription = (
     <Stack direction="row">
-      <StyledLabel> Description </StyledLabel>
+      <StyledLabel> Açıklama </StyledLabel>
 
       <TextField
         fullWidth
