@@ -126,7 +126,7 @@ export default function KanbanView() {
           onClick={handleLogout}
           sx={{ typography: "body2", color: "error.main", py: 1.5 }}
         >
-          Logout
+          Çıkış Yap
         </MenuItem>
       </Box>
       {boardLoading && renderSkeleton}
